@@ -2,9 +2,11 @@
 
 ## 📌 Project Overview
 
-The Smart Fall Risk Prediction System is a real-time computer vision application designed to improve the safety of elderly individuals and patients by detecting potential fall events without requiring wearable sensors. The system captures live video from a webcam, extracts human body landmarks using MediaPipe Pose, analyzes posture-based parameters, and determines whether a person is at risk of falling.
+The **Smart Fall Risk Prediction System** is a real-time computer vision application that enhances the safety of elderly individuals and patients through continuous, contact-free monitoring. Unlike traditional wearable sensor-based systems, this solution uses a webcam to analyse human posture and movement, eliminating the need for any physical monitoring device.
 
-When a fall is detected, the system immediately triggers an alarm, updates a web-based monitoring dashboard, records the event history, and sends an email notification to caregivers for timely assistance.
+The system leverages **OpenCV** for live video capture and **MediaPipe Pose** for extracting human body landmarks. By analysing posture-based parameters such as torso angle, shoulder alignment, head position, body tilt, and movement patterns, it identifies potential fall events in real time. Whenever a fall is detected, the system immediately activates an audible alarm, updates a web-based monitoring dashboard, records the event history, and sends an email notification to caregivers for timely assistance.
+
+Designed with a focus on simplicity, accessibility, and real-time performance, this project demonstrates how computer vision can be applied to create practical healthcare monitoring solutions for homes, hospitals, and elderly care environments.
 
 ---
 
@@ -81,7 +83,66 @@ Fall_Detection_Project
 
 ## 📷 Application Screenshots
 
-*(Screenshots will be added here.)*
+### 🏠 Welcome Page
+The landing page of the Smart Fall Risk Prediction System.
+
+![Welcome Page](screenshots/01_welcome_page.png)
+
+---
+
+### 📝 Registration Page
+Allows new users to create an account.
+
+![Registration Page](screenshots/02_registration_page.png)
+
+---
+
+### 🔐 Login Page
+Secure login page for accessing the monitoring dashboard.
+
+![Login Page](screenshots/03_login_page.png)
+
+---
+
+### 📊 Smart Dashboard
+Displays the live monitoring interface and overall system status.
+
+![Dashboard](screenshots/04_smart_dashboard.png)
+
+---
+
+### ✅ Normal Detection
+Shows the system continuously monitoring a person under normal conditions.
+
+![Normal Detection](screenshots/05_normal_detection.png)
+
+---
+
+### 🚨 Fall Detection
+Displays the system identifying an abnormal posture and triggering a fall alert.
+
+![Fall Detection](screenshots/06_fall_detection.png)
+
+---
+
+### 📧 Email Alert
+Automatic email notification sent to caregivers after a fall is detected.
+
+![Email Alert](screenshots/07_email_alert.png)
+
+---
+
+### 📈 Analytics Dashboard
+Provides visual insights and statistics related to recorded fall events.
+
+![Analytics](screenshots/08_analytics_dashboard.png)
+
+---
+
+### 📋 Fall History
+Displays previously detected fall events with timestamps for monitoring and record keeping.
+
+![History](screenshots/09_fall_history.png)
 
 ---
 
@@ -100,6 +161,3 @@ Fall_Detection_Project
 
 **Sethu Phani Madhavi**
 
-B.Tech Computer Science Engineering
-
-Andhra Loyola Institute of Engineering and Technology
