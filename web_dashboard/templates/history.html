@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fall History</title>
+
+<style>
+body{
+    font-family: Arial;
+    background: linear-gradient(135deg,#1e1e2f,#2c3e50);
+    color:white;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.top-bar{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+button{
+    padding:10px 15px;
+    margin:5px;
+    background:#00ff9f;
+    color:black;
+    border:none;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+}
+
+th, td{
+    padding:12px;
+    text-align:center;
+}
+
+th{
+    background:#00ff9f;
+    color:black;
+}
+
+tr:nth-child(even){
+    background: rgba(255,255,255,0.05);
+}
+</style>
+</head>
+
+<body>
+
+<h1>📊 Fall History</h1>
+
+<div class="top-bar">
+    <button onclick="window.location.href='/dashboard'">⬅ Back</button>
+    <button onclick="window.location.href='/download'">📥 Download Report</button>
+</div>
+
+<table>
+<tr>
+<th>Time</th>
+<th>Severity</th>
+<th>Torso Angle</th>
+<th>Shoulder Tilt</th>
+<th>Head-Hip Diff</th>
+<th>Cause</th>
+</tr>
+
+{% for fall in falls %}
+<tr>
+<td>{{ fall.time }}</td>
+<td>
+{{ "CRITICAL 🔴" if fall.risk==3 else "HIGH 🟠" if fall.risk==2 else "LOW 🟢" }}
+</td>
+<td>{{ fall.torso_angle }}°</td>
+<td>{{ fall.shoulder_tilt }}</td>
+<td>{{ fall.head_hip_diff }}</td>
+<td>
+{{ "High torso tilt" if fall.torso_angle > 45 else "" }}
+{{ " | Shoulder imbalance" if fall.shoulder_tilt > 0.1 else "" }}
+{{ " | Body collapse" if fall.head_hip_diff < 0.15 else "" }}
+</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>

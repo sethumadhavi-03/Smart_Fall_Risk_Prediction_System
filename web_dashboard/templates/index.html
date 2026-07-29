@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Fall Analysis Dashboard</title>
+
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+<style>
+
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1e1e2f, #2c3e50);
+    margin:0;
+    padding:20px;
+    color:white;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+    font-size:32px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+}
+
+/* Buttons */
+.top-bar{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.top-bar button{
+    padding:10px 15px;
+    margin:5px;
+    background:#00ff9f;
+    border:none;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+/* Card */
+.event{
+    padding:20px;
+    margin:20px 0;
+    border-left:6px solid;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Sections */
+.top-row{
+    display:flex;
+    justify-content:space-between;
+    font-size:16px;
+    margin-bottom:10px;
+}
+
+.middle-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:10px 0;
+}
+
+.fall-type{
+    font-size:18px;
+    font-weight:bold;
+    color:#00ff9f;
+}
+
+.confidence{
+    background: rgba(0,255,159,0.2);
+    padding:5px 10px;
+    border-radius:8px;
+    font-size:13px;
+}
+
+.divider{
+    height:1px;
+    background:rgba(255,255,255,0.1);
+    margin:10px 0;
+}
+
+/* Bottom section */
+.bottom-row{
+    display:flex;
+    justify-content:space-between;
+}
+
+.left{
+    width:60%;
+}
+
+.right{
+    width:35%;
+    font-size:14px;
+    color:#ddd;
+}
+
+/* Colors */
+.green{border-color:#00ff9f;}
+.orange{border-color:#ff9f43;}
+.red{border-color:#ff4d4d;}
+
+b{
+    color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🧠 Smart Fall Analysis Dashboard</h1>
+
+<div class="top-bar">
+    <button onclick="window.location.href='/history'">📊 View History</button>
+    <button onclick="window.location.href='/analytics'">📈 Analytics</button>
+    <button onclick="window.location.href='/'">🔐 Logout</button>
+</div>
+
+<div id="events">
+
+{% for fall in falls %}
+<div class="event {{ 'green' if fall.risk == 1 else 'orange' if fall.risk == 2 else 'red' }}">
+
+    <!-- TOP -->
+    <div class="top-row">
+        <div><b>Time:</b> {{ fall.time }}</div>
+        <div><b>Severity:</b> {{ "CRITICAL 🔴" if fall.risk==3 else "HIGH 🟠" if fall.risk==2 else "LOW 🟢" }}</div>
+    </div>
+
+    <!-- MIDDLE -->
+    <div class="middle-row">
+        <div class="fall-type">
+            {{ "BACKWARD FALL ⚠️" if fall.torso_angle > 90 else "SIDE FALL ⚠️" if fall.shoulder_tilt > 0.1 else "UNSTABLE POSTURE ⚠️" }}
+        </div>
+
+        <div class="confidence">
+            Confidence: {{ (fall.risk / 3 * 100)|round(0) }}%
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- BOTTOM -->
+    <div class="bottom-row">
+
+        <div class="left">
+            <b>Torso Angle:</b> {{ fall.torso_angle }}°<br>
+            <b>Shoulder Tilt:</b> {{ fall.shoulder_tilt }}<br>
+            <b>Head-Hip Diff:</b> {{ fall.head_hip_diff }}
+        </div>
+
+        <div class="right">
+            <b>Cause:</b><br>
+            {% if fall.torso_angle > 45 %}
+                • Body tilted significantly<br>
+            {% endif %}
+            {% if fall.shoulder_tilt > 0.1 %}
+                • Shoulder imbalance detected<br>
+            {% endif %}
+            {% if fall.head_hip_diff < 0.15 %}
+                • Sudden posture collapse<br>
+            {% endif %}
+        </div>
+
+    </div>
+
+</div>
+{% endfor %}
+
+</div>
+
+</div>
+
+<script>
+
+const socket = io();
+const eventsDiv = document.getElementById("events");
+
+function getSeverity(risk){
+    if(risk == 3) return "CRITICAL 🔴";
+    if(risk == 2) return "HIGH 🟠";
+    return "LOW 🟢";
+}
+
+function getFallType(event){
+    if(event.torso_angle > 90) return "BACKWARD FALL ⚠️";
+    if(event.shoulder_tilt > 0.1) return "SIDE FALL ⚠️";
+    return "UNSTABLE POSTURE ⚠️";
+}
+
+function getConfidence(risk){
+    return Math.round((risk / 3) * 100);
+}
+
+function getCause(event){
+    let reasons = [];
+
+    if(event.torso_angle > 45) reasons.push("• Body tilted significantly");
+    if(event.shoulder_tilt > 0.1) reasons.push("• Shoulder imbalance detected");
+    if(event.head_hip_diff < 0.15) reasons.push("• Sudden posture collapse");
+    if(event.torso_speed > 0.02) reasons.push("• Sudden movement");
+
+    return reasons.join("<br>");
+}
+
+socket.on("new_fall",function(event){
+
+    const div=document.createElement("div");
+
+    let color="green";
+    if(event.risk==2) color="orange";
+    if(event.risk==3) color="red";
+
+    div.className="event "+color;
+
+    div.innerHTML = `
+    
+    <div class="top-row">
+        <div><b>Time:</b> ${event.time}</div>
+        <div><b>Severity:</b> ${getSeverity(event.risk)}</div>
+    </div>
+
+    <div class="middle-row">
+        <div class="fall-type">${getFallType(event)}</div>
+        <div class="confidence">Confidence: ${getConfidence(event.risk)}%</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="bottom-row">
+        <div class="left">
+            <b>Torso Angle:</b> ${event.torso_angle}°<br>
+            <b>Shoulder Tilt:</b> ${event.shoulder_tilt}<br>
+            <b>Head-Hip Diff:</b> ${event.head_hip_diff}
+        </div>
+
+        <div class="right">
+            <b>Cause:</b><br>
+            ${getCause(event)}
+        </div>
+    </div>
+
+    `;
+
+    eventsDiv.prepend(div);
+
+    if(eventsDiv.childNodes.length>20){
+        eventsDiv.removeChild(eventsDiv.lastChild);
+    }
+
+});
+
+</script>
+
+</body>
+</html>

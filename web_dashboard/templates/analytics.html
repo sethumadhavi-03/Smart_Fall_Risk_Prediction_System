@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Analytics</title>
+
+<style>
+
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#1e1e2f,#2c3e50);
+    color:white;
+    margin:0;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+}
+
+/* Cards */
+.card{
+    background: rgba(255,255,255,0.08);
+    padding:20px;
+    margin:15px 0;
+    border-radius:15px;
+    backdrop-filter: blur(10px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Title */
+.card h2{
+    margin-bottom:10px;
+    color:#00ff9f;
+}
+
+/* Button */
+.back-btn{
+    display:block;
+    margin-bottom:20px;
+    padding:10px 15px;
+    background:#00ff9f;
+    color:black;
+    border:none;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+/* Highlight numbers */
+.highlight{
+    font-size:20px;
+    font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📈 Fall Analytics</h1>
+
+<button class="back-btn" onclick="window.location.href='/dashboard'">⬅ Back to Dashboard</button>
+
+<!-- OVERVIEW -->
+<div class="card">
+    <h2>Overview</h2>
+    <p>Total Predicted Falls: <span class="highlight">{{ total }}</span></p>
+    <p>High Risk Falls: <span class="highlight">{{ high }}</span></p>
+</div>
+
+<!-- FALL TYPES -->
+<div class="card">
+    <h2>Fall Type Distribution</h2>
+    <p>Backward Falls: {{ backward }}</p>
+    <p>Side Falls: {{ side }}</p>
+    <p>Unstable Posture: {{ unstable }}</p>
+</div>
+
+<!-- INSIGHT -->
+<div class="card">
+    <h2>Key Insight</h2>
+    <p>Most Common Cause: {{ most_common }}</p>
+</div>
+
+</div>
+
+</body>
+</html>
