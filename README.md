@@ -93,56 +93,56 @@ The landing page of the Smart Fall Risk Prediction System.
 ### 📝 Registration Page
 Allows new users to create an account.
 
-![Registration Page](screenshots/02_registration_page.png)
+![Registration Page](screenshots/registration_page.png)
 
 ---
 
 ### 🔐 Login Page
 Secure login page for accessing the monitoring dashboard.
 
-![Login Page](screenshots/03_login_page.png)
+![Login Page](screenshots/login_page.png)
 
 ---
 
 ### 📊 Smart Dashboard
 Displays the live monitoring interface and overall system status.
 
-![Dashboard](screenshots/04_smart_dashboard.png)
+![Dashboard](screenshots/smart_dashboard.png)
 
 ---
 
 ### ✅ Normal Detection
 Shows the system continuously monitoring a person under normal conditions.
 
-![Normal Detection](screenshots/05_normal_detection.png)
+![Normal Detection](screenshots/normal_detection.png)
 
 ---
 
 ### 🚨 Fall Detection
 Displays the system identifying an abnormal posture and triggering a fall alert.
 
-![Fall Detection](screenshots/06_fall_detection.png)
+![Fall Detection](screenshots/fall_detection.png)
 
 ---
 
 ### 📧 Email Alert
 Automatic email notification sent to caregivers after a fall is detected.
 
-![Email Alert](screenshots/07_email_alert.png)
+![Email Alert](screenshots/email_alert.png)
 
 ---
 
 ### 📈 Analytics Dashboard
 Provides visual insights and statistics related to recorded fall events.
 
-![Analytics](screenshots/08_analytics_dashboard.png)
+![Analytics](screenshots/analytics_dashboard.png)
 
 ---
 
 ### 📋 Fall History
 Displays previously detected fall events with timestamps for monitoring and record keeping.
 
-![History](screenshots/09_fall_history.png)
+![History](screenshots/fall_history.png)
 
 ---
 
