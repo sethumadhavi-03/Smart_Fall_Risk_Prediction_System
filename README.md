@@ -93,7 +93,7 @@ The landing page of the Smart Fall Risk Prediction System.
 ### 📝 Registration Page
 Allows new users to create an account.
 
-![Registration Page](screenshots/registration_page.png)
+![Registration Page](screenshots/register_page.png)
 
 ---
 
