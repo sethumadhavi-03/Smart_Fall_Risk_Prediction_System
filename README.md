@@ -86,7 +86,7 @@ Fall_Detection_Project
 ### 🏠 Welcome Page
 The landing page of the Smart Fall Risk Prediction System.
 
-![Welcome Page](screenshots/01_welcome_page.png)
+![Welcome Page](screenshots/welcome_page.png)
 
 ---
 
