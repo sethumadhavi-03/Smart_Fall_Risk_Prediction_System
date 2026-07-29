@@ -121,7 +121,7 @@ Shows the system continuously monitoring a person under normal conditions.
 ### 🚨 Fall Detection
 Displays the system identifying an abnormal posture and triggering a fall alert.
 
-![Fall Detection](screenshots/fall_detection.png)
+![Fall Detection](screenshots/abnormal_detectition.png)
 
 ---
 
@@ -135,7 +135,7 @@ Automatic email notification sent to caregivers after a fall is detected.
 ### 📈 Analytics Dashboard
 Provides visual insights and statistics related to recorded fall events.
 
-![Analytics](screenshots/analytics_dashboard.png)
+![Analytics](screenshots/fall_analytics.png)
 
 ---
 
